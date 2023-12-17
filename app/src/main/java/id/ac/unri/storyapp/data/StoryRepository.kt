@@ -38,7 +38,7 @@ class StoryRepository @Inject constructor(
     ): Flow<Result<AddNewStoryResponse>> = flow {
         try {
             val bearerToken = generateBearerToken(token)
-            val response = apiService.addStory(token, file, description)
+            val response = apiService.addStory(bearerToken, file, description)
             emit(Result.success(response))
             println("Response: $response")
         }catch (e: Exception) {

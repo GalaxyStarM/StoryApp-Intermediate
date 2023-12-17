@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -38,7 +39,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private var getFile: File? = null
     private var job: Job = Job()
-    private var token: String = " "
+    private var token: String = ""
     private val addStoryViewModel: AddStoryViewModel by viewModels()
 
     private lateinit var currentPhotoPath: String
@@ -114,11 +115,11 @@ class AddStoryActivity : AppCompatActivity() {
         setLoadingState(true)
 
         val desc = binding?.etDescription
-        var isValid = true
+        val isValid = true
 
         if (desc?.text.toString().isBlank()) {
             desc?.error = resources.getString(R.string.valid_desc)
-            isValid = false
+            !isValid
         }
 
         if(getFile == null) {
@@ -129,7 +130,7 @@ class AddStoryActivity : AppCompatActivity() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
-            isValid = false
+            !isValid
         }
 
         if(isValid) {
@@ -154,7 +155,9 @@ class AddStoryActivity : AppCompatActivity() {
 
                         response.onFailure {
                             setLoadingState(false)
+                            val errorMessage = it.message ?:
                             Message.setMessage(this@AddStoryActivity, getString(R.string.failed_add_story))
+                            Log.e("AddStoryActivity", "Failed to add story because: $errorMessage")
                         }
                     }
                 }

@@ -2,7 +2,6 @@ package id.ac.unri.storyapp.adapter
 
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -36,19 +35,6 @@ class StoryAdapter: ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_C
 
     inner class MyViewHolder(val binding: ItemStoryBinding):
         RecyclerView.ViewHolder(binding.root)
-    {
-        fun bind(listStory: ListStoryItem, context: Context) {
-            binding.apply {
-                Glide.with(itemView.context)
-                    .load(listStory.photoUrl)
-                    .into(ivStory)
-                tvStoryUsername.text = listStory.name
-                tvStoryDesc.text = listStory.description
-
-
-            }
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent,false)
