@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <resources>
         <string name="app_name">Story App</string>
         <string name="signup">Daftar</string>
         <string name="login">Masuk</string>
@@ -50,5 +49,4 @@
         <string name="success_add_story">Anda berhasil menambahkan cerita</string>
         <string name="failed_add_story">Anda gagal menambahkan cerita</string>
         <string name="language">Bahasa</string>
-    </resources>
 </resources>
