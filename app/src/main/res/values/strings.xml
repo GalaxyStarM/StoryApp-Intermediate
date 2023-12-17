@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="signup">Register</string>
+    <string name="login">Log in</string>
+    <string name="title_signup_page">Complete your data below</string>
+
+    <string name="email">Email</string>
+    <string name="hint_email">Input your Email</string>
+    <string name="password">Password</string>
+    <string name="hint_password">Input your Password</string>
+    <string name="hint_username">Input your username</string>
+    <string name="username_error_message">Username can\'t be less than 2 characters</string>
+    <string name="email_error_message">Email must be correct</string>
+    <string name="password_error_message">Password must be more than 8 characters</string>
+    <string name="register">Register</string>
+    <string name="success_regAcc">Successfully register account</string>
+    <string name="success_login">Successfully login to your account</string>
+
+    <string name="message_login_page">Input your data first</string>
+    <string name="name">Name</string>
+    <string name="greeting">Hello %1$s,</string>
+    <string name="logout">Log out</string>
+    <string name="login_page">Login to your account</string>
+    <string name="belum_punya_akun">Don\'t have an account yet?</string>
+    <string name="warning_input">Data is not complete</string>
+    <string name="check">Make sure your email and password are correct</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="tv_login">Share your stories and excitement</string>
+    <string name="tv_loginn">Come in and tell us your story</string>
+
+    <string name="dummy_name">Tri Murniati</string>
+    <string name="example_story">Example Story</string>
+    <string name="dummy_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="stories">Stories</string>
+    <string name="create_story">Create Story</string>
+    <string name="no_data">No data</string>
+    <string name="check_connection">Oops, check your connection...</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="add_story">Add story</string>
+    <string name="select_image">Select Image</string>
+    <string name="select_camera">Camera</string>
+    <string name="select_galery">Galery</string>
+    <string name="tv_desc">Write the description</string>
+
+    <string name="choose_picture">Choose Picture</string>
+    <string name="valid_desc">Description cannot be empty</string>
+    <string name="valid_image">Upload an image first</string>
+    <string name="success_add_story">You\'ve successfully added a story</string>
+    <string name="failed_add_story">You failed to add a story</string>
+    <string name="language">Language</string>
+</resources>
