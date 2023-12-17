@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <resources>
+        <string name="app_name">Story App</string>
+        <string name="signup">Daftar</string>
+        <string name="login">Masuk</string>
+        <string name="title_signup_page">Lengkapi data anda dibawah ini</string>
+
+        <string name="email">Email</string>
+        <string name="hint_email">Masukkan email anda</string>
+        <string name="password">Password</string>
+        <string name="hint_password">Masukkan password anda</string>
+        <string name="hint_username">Masukkan nama anda</string>
+        <string name="username_error_message">Nama tidak boleh kurang dari 2 karakter</string>
+        <string name="email_error_message">Email harus benar</string>
+        <string name="password_error_message">Password harus lebih dari 8 karakter</string>
+        <string name="register">Daftar</string>
+        <string name="success_regAcc">Berhasil mendaftarkan akun</string>
+        <string name="success_login">Berhasil masuk</string>
+
+        <string name="message_login_page">Masukkan data anda terlebih dahulu</string>
+        <string name="name">Nama</string>
+        <string name="greeting">Halo %1$s,</string>
+        <string name="logout">Keluar</string>
+        <string name="login_page">Masuk ke akun anda</string>
+        <string name="dont_have_acc">Belum punya akun?</string>
+        <string name="warning_input">Data belum lengkap</string>
+        <string name="check">Pastikan email dan password anda benar</string>
+        <string name="already_have_an_account">Sudah punya akun?</string>
+        <string name="tv_login">Bagikan cerita dan keseruanmu</string>
+        <string name="tv_loginn">Ayo bergabung dan buat ceritamu</string>
+
+        <string name="dummy_name">Tri Murniati</string>
+        <string name="example_story">Contoh Cerita</string>
+        <string name="dummy_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+        <string name="stories">Cerita</string>
+        <string name="create_story">Buat Cerita</string>
+        <string name="no_data">Tidak ada data</string>
+        <string name="check_connection">Oops, cek koneksi anda…</string>
+        <string name="try_again">COBA LAGI</string>
+        <string name="add_story">Tambah Cerita</string>
+        <string name="select_image">Pilih Gambar</string>
+        <string name="select_camera">Kamera</string>
+        <string name="select_galery">Galeri</string>
+        <string name="tv_desc">Tulis deskripsi</string>
+
+        <string name="choose_picture">Pilih Gambar</string>
+        <string name="valid_desc">Deskripsi tidak boleh kosong</string>
+        <string name="valid_image">Unggah gambar terlebih dahulu</string>
+        <string name="success_add_story">Anda berhasil menambahkan cerita</string>
+        <string name="failed_add_story">Anda gagal menambahkan cerita</string>
+        <string name="language">Bahasa</string>
+    </resources>
+</resources>

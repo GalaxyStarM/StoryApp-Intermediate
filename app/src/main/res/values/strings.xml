@@ -21,7 +21,7 @@
     <string name="greeting">Hello %1$s,</string>
     <string name="logout">Log out</string>
     <string name="login_page">Login to your account</string>
-    <string name="belum_punya_akun">Don\'t have an account yet?</string>
+    <string name="dont_have_acc">Don\'t have an account yet?</string>
     <string name="warning_input">Data is not complete</string>
     <string name="check">Make sure your email and password are correct</string>
     <string name="already_have_an_account">Already have an account?</string>
@@ -34,12 +34,12 @@
     <string name="stories">Stories</string>
     <string name="create_story">Create Story</string>
     <string name="no_data">No data</string>
-    <string name="check_connection">Oops, check your connection...</string>
+    <string name="check_connection">Oops, check your connection…</string>
     <string name="try_again">TRY AGAIN</string>
     <string name="add_story">Add story</string>
     <string name="select_image">Select Image</string>
     <string name="select_camera">Camera</string>
-    <string name="select_galery">Galery</string>
+    <string name="select_galery">Gallery</string>
     <string name="tv_desc">Write the description</string>
 
     <string name="choose_picture">Choose Picture</string>
