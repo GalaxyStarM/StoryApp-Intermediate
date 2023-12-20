@@ -7,27 +7,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import id.ac.unri.storyapp.data.remote.response.ListStoryItem
+import id.ac.unri.storyapp.data.local.entity.Story
 import id.ac.unri.storyapp.databinding.ItemStoryBinding
 import id.ac.unri.storyapp.ui.DetailActivity
 import id.ac.unri.storyapp.ui.DetailActivity.Companion.EXTRA_STORY_USER
 
-class StoryAdapter: ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_CALL) {
+class StoryAdapter: PagingDataAdapter<Story, StoryAdapter.MyViewHolder>(DIFF_CALL) {
 
     companion object {
-        private val DIFF_CALL = object : DiffUtil.ItemCallback<ListStoryItem>(){
-            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+        private val DIFF_CALL = object : DiffUtil.ItemCallback<Story>(){
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(
-                oldItem: ListStoryItem,
-                newItem: ListStoryItem
-            ): Boolean {
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
                 return oldItem == newItem
             }
         }
@@ -44,10 +41,10 @@ class StoryAdapter: ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_C
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val listStory = getItem(position)
         holder.binding.apply {
-            tvStoryUsername.text = listStory.name
-            tvStoryDesc.text = listStory.description
+            tvStoryUsername.text = listStory?.name
+            tvStoryDesc.text = listStory?.description
             Glide.with(holder.itemView)
-                .load(listStory.photoUrl)
+                .load(listStory?.photoUrl)
                 .into(ivStory)
 
             root.setOnClickListener{
@@ -64,9 +61,5 @@ class StoryAdapter: ListAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_C
                 }
             }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return currentList.size
     }
 }

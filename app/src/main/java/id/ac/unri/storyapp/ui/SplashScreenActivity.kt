@@ -5,12 +5,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
+import androidx.paging.ExperimentalPagingApi
 import dagger.hilt.android.AndroidEntryPoint
 import id.ac.unri.storyapp.databinding.ActivitySplashScreenBinding
 import id.ac.unri.storyapp.viewmodel.SplashScreenViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-
+@ExperimentalPagingApi
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {

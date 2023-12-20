@@ -72,4 +72,16 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/img_not_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:contentDescription="@string/no_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_data_notfound" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>

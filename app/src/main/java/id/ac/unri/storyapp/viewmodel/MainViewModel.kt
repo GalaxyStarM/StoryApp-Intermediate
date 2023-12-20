@@ -1,14 +1,19 @@
 package id.ac.unri.storyapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.ac.unri.storyapp.data.AuthRepository
 import id.ac.unri.storyapp.data.StoryRepository
+import id.ac.unri.storyapp.data.local.entity.Story
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@ExperimentalPagingApi
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val authRepository: AuthRepository,
@@ -23,9 +28,6 @@ class MainViewModel @Inject constructor(
 
     fun getAuthToken(): Flow<String?> = authRepository.getAuthToken()
 
-    suspend fun getAllStories(
-        token: String,
-        page: Int? = null,
-        size: Int? = null) =
-        storyRepository.getAllStories(token, page, size)
+    suspend fun getAllStories(token: String): LiveData<PagingData<Story>> =
+        storyRepository.getAllStories(token).cachedIn(viewModelScope)
 }

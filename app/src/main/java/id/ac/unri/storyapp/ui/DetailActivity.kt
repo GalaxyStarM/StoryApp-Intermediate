@@ -3,9 +3,10 @@ package id.ac.unri.storyapp.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import id.ac.unri.storyapp.data.remote.response.ListStoryItem
+import id.ac.unri.storyapp.data.local.entity.Story
 import id.ac.unri.storyapp.databinding.ActivityDetailBinding
 
+@Suppress("DEPRECATION")
 class DetailActivity : AppCompatActivity() {
 
     private var binding : ActivityDetailBinding? = null
@@ -23,7 +24,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getData(){
-        val story = intent.getParcelableExtra<ListStoryItem>(EXTRA_STORY_USER)
+        val story = intent.getParcelableExtra<Story>(EXTRA_STORY_USER)
         binding?.apply {
             tvStoryUsername.text = story?.name
             tvStoryDesc.text = story?.description

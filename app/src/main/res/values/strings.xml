@@ -48,4 +48,13 @@
     <string name="success_add_story">You\'ve successfully added a story</string>
     <string name="failed_add_story">You failed to add a story</string>
     <string name="language">Language</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+    <string name="error_parsing_map">Style parsing failed</string>
+
+    <string name="warning_active_location">Please active your location</string>
+    <string name="error_map_style">Can\'t find style. Error: %d</string>
+    <string name="retry">Retry</string>
+    <string name="error_dataLoad">Failed to load data</string>
 </resources>

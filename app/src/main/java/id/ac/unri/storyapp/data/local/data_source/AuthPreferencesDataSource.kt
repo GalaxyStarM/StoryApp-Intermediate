@@ -1,4 +1,4 @@
-package id.ac.unri.storyapp.data.local
+package id.ac.unri.storyapp.data.local.data_source
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

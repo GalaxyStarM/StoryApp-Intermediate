@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
+import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.ac.unri.storyapp.R
@@ -18,7 +19,7 @@ import id.ac.unri.storyapp.utils.Message
 import id.ac.unri.storyapp.viewmodel.RegisterViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-
+@ExperimentalPagingApi
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {

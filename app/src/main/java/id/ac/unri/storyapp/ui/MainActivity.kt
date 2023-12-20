@@ -3,7 +3,6 @@ package id.ac.unri.storyapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -11,16 +10,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import id.ac.unri.storyapp.R
+import id.ac.unri.storyapp.adapter.LoadingStateAdapter
 import id.ac.unri.storyapp.adapter.StoryAdapter
-import id.ac.unri.storyapp.data.remote.response.ListStoryItem
+import id.ac.unri.storyapp.data.local.entity.Story
 import id.ac.unri.storyapp.databinding.ActivityMainBinding
+import id.ac.unri.storyapp.utils.animateVisibility
 import id.ac.unri.storyapp.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
+@ExperimentalPagingApi
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -77,34 +82,54 @@ class MainActivity : AppCompatActivity() {
     private fun getAllStories(token:String){
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                mainViewModel.getAllStories(token).collect{ result ->
-                    result.onSuccess {
-                        val response = result.getOrNull()
-                        val liststory = response?.listStory as List<ListStoryItem>
-                        Log.d("MainActivity", "List Story Size: ${liststory.size}")
-
-                        setupRecyclerView()
-                        setUpadateStories(liststory)
-                    }
-                    result.onFailure {
-                        val response = result.exceptionOrNull()
-                        response?.printStackTrace()
-                    }
+                mainViewModel.getAllStories(token).observe(this@MainActivity) { listStory ->
+                    setUpdateStories(listStory)
                 }
             }
         }
     }
 
-    private fun setUpadateStories(liststory: List<ListStoryItem>){
+    private fun setUpdateStories(liststory: PagingData<Story>){
         val recyclerViewState = recyclerView.layoutManager?.onSaveInstanceState()
-        listAdapter.submitList(liststory)
+        listAdapter.submitData(lifecycle, liststory)
         recyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
     }
 
     private fun setupRecyclerView() {
         recyclerView = binding?.rvStory!!
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = listAdapter
+
+        listAdapter.addLoadStateListener { loadState ->
+            if(loadState.source.refresh is LoadState.NotLoading
+                && loadState.append.endOfPaginationReached
+                && listAdapter.itemCount < 1
+                || loadState.source.refresh is LoadState.Error) {
+                binding?.apply {
+                    imgNotFound.animateVisibility(true)
+                    rvStory.animateVisibility(false)
+                }
+            } else {
+                binding?.apply {
+                    imgNotFound.animateVisibility(false)
+                    rvStory.animateVisibility(true)
+                }
+            }
+            binding?.srLayout?.isRefreshing = loadState.source.refresh is LoadState.Loading
+        }
+
+        try {
+            recyclerView = binding?.rvStory!!
+            recyclerView.apply {
+                adapter = listAdapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter {
+                        listAdapter.retry()
+                    }
+                )
+                recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+            }
+        }catch (e: NullPointerException) {
+            e.printStackTrace()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -121,6 +146,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_language -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                true
+            }
+            R.id.menu_map -> {
+                startActivity(Intent(this, MapsActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)

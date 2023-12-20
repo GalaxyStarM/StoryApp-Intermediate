@@ -1,6 +1,6 @@
 package id.ac.unri.storyapp.data
 
-import id.ac.unri.storyapp.data.local.AuthPreferencesDataSource
+import id.ac.unri.storyapp.data.local.data_source.AuthPreferencesDataSource
 import id.ac.unri.storyapp.data.remote.network.ApiService
 import id.ac.unri.storyapp.data.remote.response.LoginResponse
 import id.ac.unri.storyapp.data.remote.response.RegisterResponse
