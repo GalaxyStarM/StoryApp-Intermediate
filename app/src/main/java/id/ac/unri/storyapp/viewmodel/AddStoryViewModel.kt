@@ -22,8 +22,10 @@ class AddStoryViewModel @Inject constructor(
     suspend fun addStory(
         token: String,
         file: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        lat: RequestBody?,
+        lon: RequestBody?
     ): Flow<Result<AddNewStoryResponse>> =
-        storyRepository.addStory(token, file, description)
+        storyRepository.addStory(token, file, description, lat, lon)
 
 }

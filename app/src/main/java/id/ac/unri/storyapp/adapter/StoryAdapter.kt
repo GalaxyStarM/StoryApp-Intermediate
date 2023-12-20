@@ -19,7 +19,7 @@ import id.ac.unri.storyapp.ui.DetailActivity.Companion.EXTRA_STORY_USER
 class StoryAdapter: PagingDataAdapter<Story, StoryAdapter.MyViewHolder>(DIFF_CALL) {
 
     companion object {
-        private val DIFF_CALL = object : DiffUtil.ItemCallback<Story>(){
+         val DIFF_CALL = object : DiffUtil.ItemCallback<Story>(){
             override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
                 return oldItem == newItem
             }

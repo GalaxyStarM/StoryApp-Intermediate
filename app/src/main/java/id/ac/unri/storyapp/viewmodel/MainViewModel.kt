@@ -28,6 +28,6 @@ class MainViewModel @Inject constructor(
 
     fun getAuthToken(): Flow<String?> = authRepository.getAuthToken()
 
-    suspend fun getAllStories(token: String): LiveData<PagingData<Story>> =
+    fun getAllStories(token: String): LiveData<PagingData<Story>> =
         storyRepository.getAllStories(token).cachedIn(viewModelScope)
 }

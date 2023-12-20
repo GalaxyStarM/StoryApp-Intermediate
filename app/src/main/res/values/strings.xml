@@ -57,4 +57,5 @@
     <string name="error_map_style">Can\'t find style. Error: %d</string>
     <string name="retry">Retry</string>
     <string name="error_dataLoad">Failed to load data</string>
+    <string name="share_location">Share Location</string>
 </resources>

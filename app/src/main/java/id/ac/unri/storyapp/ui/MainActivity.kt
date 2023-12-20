@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                     if (!itToken.isNullOrEmpty())
                         token = itToken
                     getAllStories(token)
+                    setupRecyclerView()
                     setSwipeLayout()
                 }
             }

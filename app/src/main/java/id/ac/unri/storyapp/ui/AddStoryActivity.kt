@@ -1,7 +1,9 @@
 package id.ac.unri.storyapp.ui
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,10 +12,13 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.ac.unri.storyapp.R
@@ -28,6 +33,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -39,9 +45,12 @@ class AddStoryActivity : AppCompatActivity() {
     private var binding : ActivityAddStoryBinding? = null
 
     private var getFile: File? = null
+    private var location: Location? = null
     private var job: Job = Job()
     private var token: String = ""
     private val addStoryViewModel: AddStoryViewModel by viewModels()
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var currentPhotoPath: String
 
@@ -51,6 +60,8 @@ class AddStoryActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         supportActionBar?.hide()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         lifecycleScope.launchWhenResumed {
             launch {
@@ -64,6 +75,14 @@ class AddStoryActivity : AppCompatActivity() {
         binding?.btnGallery?.setOnClickListener{ startIntentGalery() }
 
         binding?.btnSubmit?.setOnClickListener{ uploadStory() }
+
+        binding?.switchLoc?.setOnCheckedChangeListener { _, isCheck ->
+            if(isCheck){
+                myLocation()
+            } else {
+                this.location = null
+            }
+        }
     }
 
     private val launcherIntentGallery = registerForActivityResult(
@@ -144,10 +163,18 @@ class AddStoryActivity : AppCompatActivity() {
                 requestImageFile
             )
 
+            var lat: RequestBody? = null
+            var lon: RequestBody? = null
+
+            if (location != null){
+                lat = location?.latitude.toString().toRequestBody("text/plain".toMediaType())
+                lon = location?.latitude.toString().toRequestBody("text/plain".toMediaType())
+            }
+
             lifecycle.coroutineScope.launchWhenCreated {
                 if (job.isActive) job.cancel()
                 job = launch {
-                    addStoryViewModel.addStory(token, imageMultiPart, description!!).collect { response ->
+                    addStoryViewModel.addStory(token, imageMultiPart, description!!, lat, lon).collect { response ->
                         response.onSuccess {
                             Message.setMessage(this@AddStoryActivity, getString(R.string.success_add_story))
                             startActivity(Intent(this@AddStoryActivity, MainActivity::class.java))
@@ -175,6 +202,23 @@ class AddStoryActivity : AppCompatActivity() {
             false -> {
                 binding?.btnSubmit?.visibility = View.VISIBLE
                 binding?.progressBar?.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    private fun myLocation(){
+        if(ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if(location != null) {
+                    this.location = location
+                    Log.d("location", "Last Location: ${location.latitude}, ${location.latitude}")
+                } else {
+                    Message.setMessage(this, resources.getString(R.string.warning_active_location))
+                    binding?.switchLoc?.isChecked = false
+                }
             }
         }
     }
