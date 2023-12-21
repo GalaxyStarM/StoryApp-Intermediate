@@ -45,6 +45,111 @@ class MainViewModelTest{
     private val token = "auth_token"
 
     @Test
+    fun `when Get Story Should Not Null and Return Data`() = runTest {
+        val dummyStory = DataDummy.generateDummyListStory()
+        val data: PagingData<Story> = PagingTestDataSource.snapshot(dummyStory)
+        val stories = MutableLiveData<PagingData<Story>>()
+        stories.value = data
+
+        `when`(storyRepository.getAllStories(token)).thenReturn(stories)
+
+        mainViewModel = MainViewModel(authRepository, storyRepository)
+        val actualStory = mainViewModel.getAllStories(token).getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryAdapter.DIFF_CALL,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = coroutinesTestRule.testDispatcher,
+            mainDispatcher = coroutinesTestRule.testDispatcher
+        )
+
+        differ.submitData(actualStory)
+
+        advanceUntilIdle()
+
+        Assert.assertNotNull(differ.snapshot())
+        assertEquals(dummyStory.size, differ.snapshot().size)
+        assertEquals(dummyStory[0], differ.snapshot()[0])
+    }
+
+    @Test
+    fun `Get correct number of stories`() = runTest {
+        val dummyStory = DataDummy.generateDummyListStory()
+        val data: PagingData<Story> = PagingTestDataSource.snapshot(dummyStory)
+        val stories = MutableLiveData<PagingData<Story>>()
+        stories.value = data
+
+        `when`(storyRepository.getAllStories(token)).thenReturn(stories)
+
+        mainViewModel = MainViewModel(authRepository, storyRepository)
+        val actualStory = mainViewModel.getAllStories(token).getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryAdapter.DIFF_CALL,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = coroutinesTestRule.testDispatcher,
+            mainDispatcher = coroutinesTestRule.testDispatcher
+        )
+
+        differ.submitData(actualStory)
+
+        advanceUntilIdle()
+
+        val expectedSize = dummyStory.size
+        val actualSize = differ.snapshot().size
+        assertEquals(expectedSize, actualSize)
+    }
+
+    @Test
+    fun `Get first story successfully`() = runTest {
+        val dummyStory = DataDummy.generateDummyListStory()
+        val data: PagingData<Story> = PagingTestDataSource.snapshot(dummyStory)
+        val stories = MutableLiveData<PagingData<Story>>()
+        stories.value = data
+
+        `when`(storyRepository.getAllStories(token)).thenReturn(stories)
+
+        mainViewModel = MainViewModel(authRepository, storyRepository)
+        val actualStory = mainViewModel.getAllStories(token).getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryAdapter.DIFF_CALL,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = coroutinesTestRule.testDispatcher,
+            mainDispatcher = coroutinesTestRule.testDispatcher
+        )
+
+        differ.submitData(actualStory)
+
+        advanceUntilIdle()
+        Assert.assertNotNull(differ.snapshot())
+        assertEquals(dummyStory[0].id, differ.snapshot()[0]?.id)
+    }
+
+    @Test
+    fun `when Get Story Empty Should Return No Data`() = runTest {
+        val dummyStory = DataDummy.generateEmptyDummyListStory()
+        val data: PagingData<Story> = PagingTestDataSource.snapshot(dummyStory)
+        val stories = MutableLiveData<PagingData<Story>>()
+        stories.value = data
+
+        `when`(storyRepository.getAllStories(token)).thenReturn(stories)
+
+        mainViewModel = MainViewModel(authRepository, storyRepository)
+        val actualStory = mainViewModel.getAllStories(token).getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryAdapter.DIFF_CALL,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = coroutinesTestRule.testDispatcher,
+            mainDispatcher = coroutinesTestRule.testDispatcher
+        )
+
+        differ.submitData(actualStory)
+        Assert.assertEquals(0, differ.snapshot().size)
+    }
+
+    @Test
     fun `Get all stories successfully`() = runTest {
         val dummyStory = DataDummy.generateDummyListStory()
         val data: PagingData<Story> = PagingTestDataSource.snapshot(dummyStory)
@@ -70,6 +175,10 @@ class MainViewModelTest{
         assertEquals(dummyStory.size, differ.snapshot().size)
         assertEquals(dummyStory[0], differ.snapshot()[0])
     }
+
+
+
+
 }
 
 private val noopListUpdateCallback = object : ListUpdateCallback {

@@ -7,6 +7,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -74,7 +75,13 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding?.btnGallery?.setOnClickListener{ startIntentGalery() }
 
-        binding?.btnSubmit?.setOnClickListener{ uploadStory() }
+        binding?.btnSubmit?.setOnClickListener{
+            if(getFile != null || !TextUtils.isEmpty(binding?.etDescription?.text.toString())){
+                uploadStory()
+            } else {
+                Message.setMessage(this, resources.getString(R.string.error_upload))
+            }
+        }
 
         binding?.switchLoc?.setOnCheckedChangeListener { _, isCheck ->
             if(isCheck){

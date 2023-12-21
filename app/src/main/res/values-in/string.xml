@@ -49,4 +49,16 @@
         <string name="success_add_story">Anda berhasil menambahkan cerita</string>
         <string name="failed_add_story">Anda gagal menambahkan cerita</string>
         <string name="language">Bahasa</string>
+
+        <string name="title_activity_maps">MapsActivity</string>
+        <string name="home">Beranda</string>
+        <string name="map">Map</string>
+        <string name="error_parsing_map">Penguraian gaya gagal</string>
+
+        <string name="warning_active_location">Mohon aktifkan lokasi anda</string>
+        <string name="error_map_style">Tidak dapat menemukan style. Error: %d</string>
+        <string name="retry">Coba lagi</string>
+        <string name="error_dataLoad">Gagal memuat data</string>
+        <string name="share_location">Bagikan Lokasi</string>
+        <string name="error_upload">Harap lengkapi file dengan deskripsi</string>
 </resources>
